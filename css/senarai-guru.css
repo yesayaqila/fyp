@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+:root {
+    --primary-blue: #0033cc;
+    --primary-red: #cc0000;
+    --black: #121212;
+    --white: #ffffff;
+    --light-color: #666666;
+    --light-grey: #f4f6f8;
+    --box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all .2s linear;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--light-grey);
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 9%;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+}
+
+.logo-img {
+    width: 8vw;
+    max-width: 50px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 2rem;
+    margin-left: -8rem;
+}
+
+.header .logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: var(--black);
+}
+
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-menu .user-icon {
+    font-size: 2.5rem;
+    color: var(--black);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.user-menu .user-icon:hover {
+    color: var(--primary-red);
+}
+
+.user-menu .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 4rem;
+    right: 0;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+    border-radius: 0.5rem;
+    z-index: 10;
+    width: 15rem;
+    text-align: center;
+}
+
+.user-menu .dropdown-menu a {
+    display: block;
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    color: var(--black);
+    border-bottom: 0.1rem solid #ddd;
+}
+
+.user-menu .dropdown-menu a:hover {
+    background-color: var(--white);
+    color: var(--primary-red);
+}
+
+.user-menu:hover .dropdown-menu {
+    display: block;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.notification-icon {
+    font-size: 2rem;
+    color: var(--black);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.notification-icon:hover {
+    color: var(--primary-red);
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 8rem;
+    left: 0;
+    width: 22rem;
+    height: 100%;
+    background-color: #F9FAFC;
+    padding-top: 2rem;
+    box-shadow: var(--box-shadow);
+    z-index: 999;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-radius: 0 1rem 1rem 0;
+}
+
+.sidebar ul li i {
+    margin-right: 1rem;
+}
+
+.sidebar .submenu {
+    display: none;
+    padding-left: 3rem;
+    background-color: #eef1f5;
+    border-left: 3px solid var(--primary-blue);
+}
+
+.sidebar .submenu li {
+    margin: 0.5rem 0;
+}
+
+.sidebar .submenu li a {
+    font-size: 1.5rem;
+    color: var(--black);
+    padding: 0.8rem 1rem;
+    display: block;
+}
+
+.sidebar .submenu li a:hover {
+    background-color: var(--primary-red);
+    color: var(--white);
+    border-radius: 0.5rem;
+}
+
+.sidebar .arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.sidebar .has-submenu.open>a .arrow {
+    transform: rotate(90deg);
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 22rem;
+    padding: 3rem;
+    padding-top: 12rem;
+    background-color: #f4f6f8;
+    min-height: 100vh;
+}
+
+/* Profile Card (optional block reuse) */
+.profile-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    background-color: var(--white);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-red);
+}
+
+.profile-body p {
+    color: var(--black);
+    font-size: 16px;
+}
+
+.teacher-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    background: white;
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.teacher-table th,
+.teacher-table td {
+    padding: 1.2rem 2rem;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
+}
+
+.teacher-table th {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.teacher-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-view {
+    background-color: var(--primary-red);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.3rem;
+}
+
+.btn-view:hover {
+    background-color: #990000;
+}
+
+.section-title {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-form input[type="text"] {
+    padding: 1rem;
+    font-size: 1.4rem;
+    width: 25rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-form button {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.search-form button i {
+    font-size: 1.4rem;
+}
+
+.pagination {
+    margin-top: 2rem;
+    text-align: center;
+}
+.page-link {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.page-link:hover {
+    background-color: #0033cc;
+    color: #fff;
+}

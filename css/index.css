@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+:root {
+    --primary-blue: #0033cc;      /* Royal Blue from logo */
+    --primary-red: #cc0000;       /* Red accent */
+    --light-bg: #ffffff;          /* White background */
+    --card-bg: #f0f0f0;           /* Light gray for cards/forms */
+    --text-color: #121212;        /* Dark text */
+    --subtext-color: #666666;     /* Dim text */
+    --border-color: #cccccc;      /* Light border */
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+}
+
+.login-container {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 420px;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.login-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.login-container h4 {
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: -15px;
+    margin-bottom: 40px;
+    color: var(--subtext-color);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: #ffffff;
+    color: var(--text-color);
+}
+
+form input::placeholder {
+    color: var(--subtext-color);
+}
+
+form button {
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary-blue);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background: #3355dd;
+}
+
+.forgot-password {
+    color: var(--primary-red);
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

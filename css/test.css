@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+:root {
+    --primary-blue: #0033cc;
+    --primary-red: #cc0000;
+    --black: #121212;
+    --white: #ffffff;
+    --light-color: #666666;
+    --box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all .2s linear;
+}
+
+body, html {
+    overflow: visible;
+}
+
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.logo-img {
+    width: 8vw;
+    max-width: 50px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 2rem;
+    margin-left: -8rem;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 9%;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+}
+
+.header .logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: var(--black);
+}
+
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-menu .user-icon {
+    font-size: 2.5rem;
+    color: var(--black);
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.user-menu .user-icon:hover {
+    color: var(--primary-red);
+}
+
+.user-menu .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 4rem;
+    right: 0;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+    border-radius: 0.5rem;
+    z-index: 10;
+    width: 15rem;
+    text-align: center;
+}
+
+.user-menu .dropdown-menu a {
+    display: block;
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    color: var(--black);
+    border-bottom: 0.1rem solid #ddd;
+    text-decoration: none;
+}
+
+.user-menu .dropdown-menu a:hover {
+    background-color: var(--white);
+    color: var(--primary-red);
+}
+
+.user-menu:hover .dropdown-menu {
+    display: block;
+}
+
+.profile-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    background-color: var(--white);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-red);
+}
+
+.profile-body p {
+    color: var(--black);
+    font-size: 16px;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.notification-icon {
+    font-size: 2rem;
+    color: var(--black);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.notification-icon:hover {
+    color: var(--primary-red);
+}
+
+.sidebar {
+    position: fixed;
+    top: 8rem;
+    left: 0;
+    width: 22rem;
+    height: 100%;
+    background-color: #F9FAFC;
+    padding-top: 2rem;
+    box-shadow: var(--box-shadow);
+    z-index: 999;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-radius: 0 1rem 1rem 0;
+}
+
+.sidebar ul li i {
+    margin-right: 1rem;
+}
+
+.sidebar .submenu {
+    display: none;
+    padding-left: 3rem;
+    background-color: #eef1f5;
+    border-left: 3px solid var(--primary-blue);
+}
+
+.sidebar .submenu li {
+    margin: 0.5rem 0;
+}
+
+.sidebar .submenu li a {
+    font-size: 1.5rem;
+    color: var(--black);
+    padding: 0.8rem 1rem;
+    display: block;
+}
+
+.sidebar .submenu li a:hover {
+    background-color: var(--primary-red);
+    color: var(--white);
+    border-radius: 0.5rem;
+}
+
+.sidebar .arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.sidebar .has-submenu.open > a .arrow {
+    transform: rotate(90deg);
+}
+
+.main-content {
+    margin-left: 22rem;
+    padding: 3rem;
+    padding-top: 12rem;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    background-color: #F9FAFC;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.tab-content {
+    display: block;
+    padding-top: 6px;
+    background-color: #F9FAFC;
+}
+
+.tab-wrapper {
+    border: 2px solid #F9FAFC;
+    border-radius: 8px;
+    background-color: white;
+    min-height: 480px;
+    /* optional */
+    margin-top: 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700; /* bold */
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.panitia-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.panitia-table th, .panitia-table td {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.panitia-table select {
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    width: 100%;
+}
+
+.btn-save {
+    background-color: #0BA84A;
+    color: white;
+    padding: 0.8rem 2rem;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #FF9800;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 5px;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.btn-discard {
+    background-color: #ccc;
+    color: #000;
+}
+
+.btn-discard,
+.btn-save {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; top: 0.5rem; }
+    10% { opacity: 1; top: 1rem; }
+    90% { opacity: 1; }
+    100% { opacity: 0; top: 0rem; }
+}
+
+.action-menu {
+    position: relative;
+}
+
+.action-button {
+    background-color: #4599FF;
+    border: none;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 2.8rem;
+    right: 0;
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
+    min-width: 160px;
+    z-index: 100;
+    text-align: left;
+}
+
+.dropdown a {
+    display: block;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: var(--black);
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+}
+
+.dropdown a:hover {
+    background-color: #f9f9f9;
+}
+
+.action-menu:hover .dropdown {
+    display: block;
+}
