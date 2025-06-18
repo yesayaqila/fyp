@@ -109,8 +109,11 @@ include 'db-skpp.php'; //
                                 ondragstart="handleDragStart(event)"
                                 data-subject-id="<?= $subject['subject_id'] ?>">
                                 <?= htmlspecialchars($subject['subject_code']) ?> - <?= htmlspecialchars($subject['subject_name']) ?>
-                                <a href="detail-panitia.php?subject_id=<?= $subject['subject_id'] ?>" class="btn-detail" title="Lihat">
-                                    <i class="fas fa-eye"></i>
+                                <a href="detail-panitia.php?subject_id=<?= $subject['subject_id'] ?>"
+                                    class=" btn-detail"
+                                    title="Lihat Maklumat Penuh"
+                                    aria-label="Lihat <?= htmlspecialchars($subject['subject_name']) ?>">
+                                    <i class="fas fa-chevron-right"></i>
                                 </a>
                             </li>
                         <?php endwhile; ?>
@@ -159,8 +162,11 @@ include 'db-skpp.php'; //
                                         ondragstart="handleDragStart(event)"
                                         data-subject-id="<?= $subject['subject_id'] ?>">
                                         <?= htmlspecialchars($subject['subject_code']) ?> - <?= htmlspecialchars($subject['subject_name']) ?>
-                                        <a href="detail-panitia.php?subject_id=<?= $subject['subject_id'] ?>" class="btn-detail" title="Lihat">
-                                            <i class="fas fa-eye"></i>
+                                        <a href="detail-panitia.php?subject_id=<?= $subject['subject_id'] ?>"
+                                            class=" btn-detail"
+                                            title="Lihat Maklumat Penuh"
+                                            aria-label="Lihat <?= htmlspecialchars($subject['subject_name']) ?>">
+                                            <i class="fas fa-chevron-right"></i>
                                         </a>
                                     </li>
                                 <?php endwhile; ?>
@@ -173,25 +179,8 @@ include 'db-skpp.php'; //
 
             </form>
 
-            <!-- Edit Panitia Modal
-            <div class="modal-overlay" id="editPanitiaModal">
-                <div class="modal-content">
-                    <h3>Edit Panitia</h3>
-                    <form id="panitiaEditForm">
-                        <div id="selectedPanitia" style="display:none; margin-bottom:1rem;">
-                            <input type="text" id="panitiaNameInput" style="width: 75%;" />
-                            <button type="button" onclick="confirmDeletePanitia()">🗑️</button>
-                        </div>
-                        <div style="margin-top: 2rem; text-align: right;">
-                            <button type="button" class="btn-save" onclick="savePanitiaChanges()">Kemaskini</button>
-                            <button type="button" class="btn-discard" onclick="closeEditPanitiaModal()">Batal</button>
-                        </div>
-                    </form>
-                </div>
-            </div>-->
-
             <!-- Tambah Panitia Modal -->
-            <div class="modal-overlay" id="addPanitiaModal">
+            <div class="modal-overlay" id="addPanitiaModal" style="display: none;">
                 <div class="modal-content">
                     <h3>Tambah Panitia Baru</h3>
                     <form id="panitiaAddForm">
@@ -281,16 +270,69 @@ include 'db-skpp.php'; //
     <script>
         function allowDrop(event) {
             event.preventDefault();
+            event.currentTarget.classList.add('drop-hover');
         }
+
+        document.querySelectorAll('.panitia-card').forEach(card => {
+            card.addEventListener('dragleave', function() {
+                card.classList.remove('drop-hover');
+            });
+        });
+
 
         function handleDragStart(event) {
             event.dataTransfer.setData("subjectId", event.target.dataset.subjectId);
         }
 
+        let pendingDrop = {
+            subjectId: null,
+            panitiaId: null
+        };
+
         function handleDrop(event) {
             event.preventDefault();
             const subjectId = event.dataTransfer.getData("subjectId");
             const panitiaId = event.currentTarget.dataset.panitiaId;
+
+            const subjectItem = document.querySelector(`.subject-item[data-subject-id="${subjectId}"]`);
+            const subjectText = subjectItem ? subjectItem.textContent.trim() : "subjek ini";
+
+            let confirmMsg = "";
+            if (panitiaId) {
+                // ✅ Get the panitia name from the card
+                const panitiaCard = event.currentTarget;
+                const header = panitiaCard.querySelector(".card-header");
+                const nameEl = header?.querySelector(".panitia-name-text") || header?.querySelector("h4");
+                const panitiaName = nameEl ? nameEl.textContent.trim() : "panitia ini";
+
+                confirmMsg = `Tetapkan <strong>${subjectText}</strong> kepada <strong> Panitia ${panitiaName}</strong>?`;
+            } else {
+                confirmMsg = `Keluarkan <strong>${subjectText}</strong> daripada panitia?`;
+            }
+
+            // Store data for later if user confirms
+            pendingDrop.subjectId = subjectId;
+            pendingDrop.panitiaId = panitiaId;
+
+            showConfirmModal(confirmMsg);
+        }
+
+        function showConfirmModal(message) {
+            document.getElementById('confirmMessage').innerHTML = message;
+            document.getElementById('confirmModal').style.display = 'flex';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+            pendingDrop.subjectId = null;
+            pendingDrop.panitiaId = null;
+        }
+
+        function confirmDrop() {
+            const {
+                subjectId,
+                panitiaId
+            } = pendingDrop;
 
             fetch("assign-subject-to-panitia.php", {
                     method: "POST",
@@ -307,7 +349,11 @@ include 'db-skpp.php'; //
                     showToast(data.message);
                     setTimeout(() => location.reload(), 500);
                 });
+
+            closeConfirmModal();
         }
+
+
 
         document.addEventListener('dragover', function(e) {
             const buffer = 150; // px from top or bottom
@@ -528,6 +574,16 @@ include 'db-skpp.php'; //
         }
     </script>
 
+
+    <div id="confirmModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 400px;">
+            <p id="confirmMessage" style="margin-bottom: 2rem;"></p>
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="btn-discard" onclick="closeConfirmModal()">Batal</button>
+                <button class="btn-save" onclick="confirmDrop()">Ya, Teruskan</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 

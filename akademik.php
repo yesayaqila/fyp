@@ -209,10 +209,9 @@
         </div>
 
         <!-- Modal Overlay -->
-        <!-- Modal Overlay -->
         <div id="subjectModal" class="modal-overlay" style="display: none;">
             <div class="modal-content">
-                <button class="close-modal" onclick="closeSubjectEditModal()">&times;</button> <!-- Close X -->
+                <button class="close-modal" onclick="closeSubjectEditModal()">&times;</button>
 
                 <h3>Kemaskini Subjek</h3>
 
@@ -223,6 +222,7 @@
                 </div>
 
                 <form id="subjectEditForm" method="post">
+                    <input type="hidden" name="subject_id" id="subject_id_hidden">
                     <!-- Add Subjek Section -->
                     <div id="newSubjectFields" style="display: none; margin-top: 1rem;">
                         <label for="newCode">Kod Subjek:</label>
@@ -246,7 +246,7 @@
                     <!-- Edit Subjek Section -->
                     <div id="editSubjectFields">
                         <label for="subjectSelect">Pilih Subjek:</label>
-                        <select id="subjectSelect" name="subject_id" required>
+                        <select id="subjectSelect" required>
                             <option value="">-- Pilih Subjek --</option>
                             <?php
                             $subjectDropdownQuery = $conn->query("SELECT * FROM subjects ORDER BY subject_name ASC");
@@ -280,7 +280,7 @@
                         <div class="modal-actions">
                             <button type="button" id="deleteSubjectBtn" class="btn-delete" onclick="deleteSubject()" style="display: none;">
                                 <i class="fa fa-trash"></i>&nbsp; Buang</button>
-                            <button type="submit" class="btn-save"><i class="fas fa-save"></i>&nbsp; Kemaskini</button>
+                            <button type="button" class="btn-save" onclick="updateSubject()"><i class="fas fa-save"></i>&nbsp; Kemaskini</button>
                         </div>
                     </div>
                 </form>
@@ -377,6 +377,8 @@
                 const selected = this.options[this.selectedIndex];
                 const deleteBtn = document.getElementById('deleteSubjectBtn');
 
+                document.getElementById('subject_id_hidden').value = this.value; // ✅ Set hidden field value
+
                 if (selected.value) {
                     // Populate fields
                     document.getElementById('codeField').value = selected.dataset.code;
@@ -387,25 +389,22 @@
                     const radios = document.querySelectorAll('input[name="offered_grades"]');
                     radios.forEach(r => r.checked = (r.value === offered));
 
-                    // Show the delete button
                     deleteBtn.style.display = 'inline-block';
                 } else {
-                    // Clear fields if no subject is selected
+                    // Clear if nothing selected
                     document.getElementById('codeField').value = '';
                     document.getElementById('nameField').value = '';
-                    const radios = document.querySelectorAll('input[name="offered_grades"]');
-                    radios.forEach(r => r.checked = false);
-
-                    // Hide the delete button
+                    document.getElementById('subject_id_hidden').value = '';
+                    document.querySelectorAll('input[name="offered_grades"]').forEach(r => r.checked = false);
                     deleteBtn.style.display = 'none';
                 }
             });
 
+            document.getElementById('subject_id_hidden').value = this.value;
 
-            document.getElementById('subjectEditForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(this);
+            function updateSubject() {
+                const form = document.getElementById('subjectEditForm');
+                const formData = new FormData(form);
 
                 fetch('update-subjects.php', {
                         method: 'POST',
@@ -413,10 +412,11 @@
                     })
                     .then(res => res.json())
                     .then(data => {
+                        console.log("Update response:", data);
                         if (data.success) {
                             showToast(data.message || "Subjek berjaya dikemaskini.");
                             closeSubjectEditModal();
-                            setTimeout(() => location.reload(), 2000);
+                            setTimeout(() => location.reload(), 1500);
                         } else {
                             showToast(data.message || "Kemaskini gagal.", true);
                         }
@@ -425,7 +425,7 @@
                         console.error("Error:", err);
                         showToast("Ralat: " + err.message, true);
                     });
-            });
+            }
 
 
             function deleteSubject() {
@@ -583,8 +583,9 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
-                            showToast("Subjek baru berjaya ditambah.");
-                            setTimeout(() => location.reload(), 2000);
+                            showToast(data.message || "Subjek baru berjaya ditambah.");
+                            closeSubjectEditModal();
+                            setTimeout(() => location.reload(), 1500);
                         } else {
                             showToast(data.message || "Gagal menambah subjek.");
                         }
@@ -603,6 +604,12 @@
             function switchToEditMode() {
                 document.getElementById('newSubjectFields').style.display = 'none';
                 document.getElementById('editSubjectFields').style.display = 'block';
+
+                // ✅ Clear fields from Add section to avoid FormData pollution
+                document.getElementById('newCode').value = '';
+                document.getElementById('newName').value = '';
+                const addRadios = document.querySelectorAll('input[name="new_grades"]');
+                addRadios.forEach(r => r.checked = false);
             }
         </script>
 

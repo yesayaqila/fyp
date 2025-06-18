@@ -1,0 +1,18 @@
+Array
+(
+    [subject_id] => 27
+    [new_code] => 
+    [new_name] => 
+    [subject_code] => sd
+    [subject_name] => sdea
+    [offered_grades] => ALL
+)
+Array
+(
+    [subject_id] => 30
+    [new_code] => 
+    [new_name] => 
+    [subject_code] => kk
+    [subject_name] => ketua kwwangn
+    [offered_grades] => 1-3
+)

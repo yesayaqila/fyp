@@ -12,8 +12,8 @@ $response = ['success' => false, 'message' => ''];
 
 try {
     // ✅ Validate required fields
-    if (!isset($_POST['subject_id'], $_POST['subject_code'], $_POST['subject_name'], $_POST['offered_grades'])) {
-        throw new Exception('Maklumat tidak lengkap.');
+    if (!isset($_POST['subject_id'], $_POST['subject_code'], $_POST['subject_name'], $_POST['offered_grades']) || empty($_POST['subject_id'])) {
+        throw new Exception('Maklumat tidak lengkap untuk kemaskini.');
     }
 
     $id = intval($_POST['subject_id']);
