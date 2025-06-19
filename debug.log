@@ -16,3 +16,12 @@ Array
     [subject_name] => ketua kwwangn
     [offered_grades] => 1-3
 )
+Array
+(
+    [subject_id] => 32
+    [new_code] => 
+    [new_name] => 
+    [subject_code] => pe
+    [subject_name] => apabende
+    [offered_grades] => ALL
+)

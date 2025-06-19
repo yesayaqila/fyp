@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['teacher_id'] = $user['teacher_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['is_admin'] = $user['is_admin'];
-            $_SESSION['position'] = $user['possition'];
+            $_SESSION['position'] = $user['position'];
+            $_SESSION['last_activity'] = time();
 
             if ($user['is_admin'] == 1) {
                 header("Location: welcome-admin.php");

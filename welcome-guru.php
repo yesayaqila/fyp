@@ -1,3 +1,21 @@
+<?php
+include 'auth-check.php';
+
+// Optional: Redirect if wrong page
+$currentPage = basename($_SERVER['PHP_SELF']);
+
+if ($_SESSION['is_admin'] == 1 && $currentPage != "welcome-admin.php") {
+    header("Location: welcome-admin.php");
+    exit;
+} elseif (strtolower($_SESSION['position']) == 'ketua panitia' && $currentPage != "welcome-ct.php") {
+    header("Location: welcome-ct.php");
+    exit;
+} elseif (strtolower($_SESSION['position']) != 'ketua panitia' && $_SESSION['is_admin'] == 0 && $currentPage != "welcome-guru.php") {
+    header("Location: welcome-guru.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,13 +47,12 @@
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a href="#">Tetapan</a>
-                    <a href="index.php">Log Keluar</a>
+                    <a href="setting.php">Ketetapan</a>
+                    <a href="logout.php">Log Keluar</a>
                 </div>
             </div>
         </div>
     </header>
-
 
     <script src="js/navbar.js"></script>
     <script src="js/dropdown.js"></script>

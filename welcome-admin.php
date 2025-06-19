@@ -1,3 +1,21 @@
+<?php
+include 'auth-check.php';
+
+// Optional: Redirect if wrong page
+$currentPage = basename($_SERVER['PHP_SELF']);
+
+if ($_SESSION['is_admin'] == 1 && $currentPage != "welcome-admin.php") {
+    header("Location: welcome-admin.php");
+    exit;
+} elseif (strtolower($_SESSION['position']) == 'ketua panitia' && $currentPage != "welcome-ct.php") {
+    header("Location: welcome-ct.php");
+    exit;
+} elseif (strtolower($_SESSION['position']) != 'ketua panitia' && $_SESSION['is_admin'] == 0 && $currentPage != "welcome-guru.php") {
+    header("Location: welcome-guru.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,11 +48,10 @@
                         <a href="welcome-guru.php" class="switch-option">
                             <i class="fas fa-chalkboard-teacher"></i> Guru
                         </a>
-                        <!-- You can add more roles here -->
                     </div>
 
                     <hr class="dropdown-divider">
-                    <a href="index.php" class="logout-link"><i class="fas fa-sign-out-alt"></i> Log Keluar</a>
+                    <a href="logout.php" class="logout-link"><i class="fas fa-sign-out-alt"></i> Log Keluar</a>
                 </div>
 
             </div>

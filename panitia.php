@@ -28,7 +28,7 @@
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a href="#">Tetapan</a>
+                    <a href="setting.php">Tetapan</a>
                     <a href="index.php">Log Keluar</a>
                 </div>
             </div>
